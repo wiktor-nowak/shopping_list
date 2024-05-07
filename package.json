@@ -1,0 +1,11 @@
+{
+  "name": "shopping_list_backend",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "start": "npm run ./build/index.js"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  }
+}
