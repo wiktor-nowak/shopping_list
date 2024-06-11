@@ -1,13 +1,21 @@
 import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import fs from "fs";
+import cors from "cors";
 
 dotenv.config();
 
 const app: Express = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5052;
+
+const corsOptions = {
+  origin: "*",
+  credentials: true,
+  optionSuccessStatus: 200
+};
 
 app.use(express.json());
+app.use(cors(corsOptions));
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TdddddS Server");
@@ -16,24 +24,28 @@ app.get("/", (req: Request, res: Response) => {
 app.get("/users", (req: Request, res: Response) => {
   res.send([
     {
-      name: "John",
-      comp: "Exp",
-      tel: 23235235325
+      id: 1,
+      name: "Egg",
+      cat: "Groceries",
+      quant: 5
     },
     {
-      name: "Rafael",
-      comp: "NG",
-      tel: 22341131367
+      id: 2,
+      name: "CocaCola can",
+      cat: "Groceries",
+      quant: 3
     },
     {
-      name: "Travis",
-      comp: "NG-core",
-      tel: 1194230434
+      id: 3,
+      name: "Toothpaste",
+      cat: "Cosmetics",
+      quant: 1
     },
     {
-      name: "Boy",
-      comp: "GX",
-      tel: 34090131203882
+      id: 4,
+      name: "USB C cable",
+      cat: "Electronics",
+      quant: 1
     }
   ]);
 });

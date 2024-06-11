@@ -6,34 +6,45 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const fs_1 = __importDefault(require("fs"));
+const cors_1 = __importDefault(require("cors"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5052;
+const corsOptions = {
+    origin: "*",
+    credentials: true,
+    optionSuccessStatus: 200
+};
 app.use(express_1.default.json());
+app.use((0, cors_1.default)(corsOptions));
 app.get("/", (req, res) => {
     res.send("Express + TdddddS Server");
 });
 app.get("/users", (req, res) => {
     res.send([
         {
-            name: "John",
-            comp: "Exp",
-            tel: 23235235325
+            id: 1,
+            name: "Egg",
+            cat: "Groceries",
+            quant: 5
         },
         {
-            name: "Rafael",
-            comp: "NG",
-            tel: 22341131367
+            id: 2,
+            name: "CocaCola can",
+            cat: "Groceries",
+            quant: 3
         },
         {
-            name: "Travis",
-            comp: "NG-core",
-            tel: 1194230434
+            id: 3,
+            name: "Toothpaste",
+            cat: "Cosmetics",
+            quant: 1
         },
         {
-            name: "Boy",
-            comp: "GX",
-            tel: 34090131203882
+            id: 4,
+            name: "USB C cable",
+            cat: "Electronics",
+            quant: 1
         }
     ]);
 });
