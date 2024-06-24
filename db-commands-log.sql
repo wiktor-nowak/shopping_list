@@ -10,4 +10,5 @@ CREATE TABLE list_items (
 SELECT * FROM list_items
 
 INSERT INTO list_items (name, category, quantity)
-VALUES ('PepsiCo', 'Drinks', 6)
+VALUES ('PepsiCo', 'Drinks', 6) RETURNING *
+

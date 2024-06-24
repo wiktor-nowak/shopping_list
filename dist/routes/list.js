@@ -19,25 +19,21 @@ exports.router = express_1.default.Router();
 exports.router.get("/", (req, res) => {
     res.send("Express + TdddddS Server");
 });
-exports.router.post("/item", (req, res) => {
+exports.router.post("/item", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const item = req.body;
     try {
-        db_pool_1.default.query("INSERT INTO list_items (name, category, quantity) VALUES ($1,$2,$3)", [
-            item.name,
-            item.category,
-            item.quantity
-        ]);
-        res.status(200).json(`Item nmed: ${item.name} successfully added to the table.`);
+        const { rows } = yield db_pool_1.default.query("INSERT INTO list_items (name, category, quantity) VALUES ($1,$2,$3) RETURNING *", [item.name, item.category, item.quantity]);
+        res.status(200).json(rows[0]);
     }
     catch (error) {
         if (item) {
-            res.status(403).json(error);
+            res.status(403).send("There is something wrong with the item!").json(error);
         }
         else {
-            res.status(422).json(error);
+            res.status(422).send("The item was not there...").json(error);
         }
     }
-});
+}));
 exports.router.get("/items", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     // call for this endpoint will be (get) .../list/items
     try {

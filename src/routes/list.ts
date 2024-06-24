@@ -7,20 +7,19 @@ router.get("/", (req: Request, res: Response) => {
   res.send("Express + TdddddS Server");
 });
 
-router.post("/item", (req: Request, res: Response) => {
+router.post("/item", async (req: Request, res: Response) => {
   const item = req.body;
   try {
-    dbPool.query("INSERT INTO list_items (name, category, quantity) VALUES ($1,$2,$3)", [
-      item.name,
-      item.category,
-      item.quantity
-    ]);
-    res.status(200).json(`Item nmed: ${item.name} successfully added to the table.`);
+    const { rows } = await dbPool.query(
+      "INSERT INTO list_items (name, category, quantity) VALUES ($1,$2,$3) RETURNING *",
+      [item.name, item.category, item.quantity]
+    );
+    res.status(200).json(rows[0]);
   } catch (error) {
     if (item) {
-      res.status(403).json(error);
+      res.status(403).send("There is something wrong with the item!").json(error);
     } else {
-      res.status(422).json(error);
+      res.status(422).send("The item was not there...").json(error);
     }
   }
 });
