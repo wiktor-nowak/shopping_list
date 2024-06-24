@@ -33,16 +33,3 @@ router.get("/items", async (req: Request, res: Response) => {
     res.status(500).json(error);
   }
 });
-
-// app.post("/item", (req: Request, res: Response) => {
-//   const body: NameAddRequestBody = req.body;
-//   const name: string = `${body.name}, `;
-//   fs.writeFile("static/names.txt", name, { flag: "a+" }, (err) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(503).send(err);
-//     } else {
-//       res.status(200).send("Successfully added a name record");
-//     }
-//   });
-// });
