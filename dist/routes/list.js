@@ -44,15 +44,14 @@ exports.router.get("/items", (req, res) => __awaiter(void 0, void 0, void 0, fun
         res.status(500).json(error);
     }
 }));
-// app.post("/item", (req: Request, res: Response) => {
-//   const body: NameAddRequestBody = req.body;
-//   const name: string = `${body.name}, `;
-//   fs.writeFile("static/names.txt", name, { flag: "a+" }, (err) => {
-//     if (err) {
-//       console.log(err);
-//       res.status(503).send(err);
-//     } else {
-//       res.status(200).send("Successfully added a name record");
-//     }
-//   });
-// });
+exports.router.delete("/item/:item_id", (req, res) => {
+    const item_id = req.params.item_id;
+    console.log(item_id);
+    try {
+        db_pool_1.default.query("DELETE FROM list_items WHERE item_id =$1", [item_id]);
+        res.status(200).json("Item successfully deleted.");
+    }
+    catch (error) {
+        res.status(500).json(error);
+    }
+});

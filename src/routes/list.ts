@@ -33,3 +33,14 @@ router.get("/items", async (req: Request, res: Response) => {
     res.status(500).json(error);
   }
 });
+
+router.delete("/item/:item_id", (req: Request, res: Response) => {
+  const item_id = req.params.item_id;
+  console.log(item_id);
+  try {
+    dbPool.query("DELETE FROM list_items WHERE item_id =$1", [item_id]);
+    res.status(200).json("Item successfully deleted.");
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
